@@ -1,0 +1,47 @@
+{
+  "name": "drone-github-check",
+  "version": "0.0.1",
+  "description": "Create github checks from test report",
+  "main": "app/index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.2",
+    "husky": "^3.0.4",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.2.4",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.18.2",
+    "prettier-package-json": "^2.1.0",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^24.0.2",
+    "tslint": "^5.19.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-microsoft-contrib": "^6.2.0",
+    "typescript": "^3.5.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf app coverage ",
+    "lint": "tslint src/**/*.ts",
+    "prepublishOnly": "run-s clean build",
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/b4nst/drone-github-check.git"
+  },
+  "keywords": [
+    "drone",
+    "github",
+    "checks",
+    "report",
+    "test"
+  ],
+  "author": "Bastien Arata",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/b4nst/drone-github-check/issues"
+  },
+  "homepage": "https://github.com/b4nst/drone-github-check#readme"
+}
