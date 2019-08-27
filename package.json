@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "Create github checks from test report",
   "main": "app/index.js",
-  "dependencies": {},
+  "dependencies": {
+    "@octokit/rest": "^16.28.2"
+  },
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.2",
