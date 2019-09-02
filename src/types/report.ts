@@ -7,12 +7,14 @@ export enum TestStatus {
 export interface SingleReport {
   name: string
   status: TestStatus
-  crashReport?: {
+  duration: number
+  line: number
+  crashReport: {
     path: string
-    start: number
-    end: number
+    lstart: number
+    lend: number
     msg: string
-  }
+  }[]
 }
 
 export interface Report {

@@ -1,3 +1,6 @@
 import { Report } from './report'
 
-export type Parser = (path: string, info: { repo: string }) => Promise<Report>
+// tslint:disable-next-line: no-empty-interface because will probably not be empty soon
+export interface ParserOpts {}
+
+export type Parser = (path: string, info: ParserOpts) => Promise<Report>
