@@ -1,0 +1,152 @@
+{
+  "created": 1566829206.157851,
+  "duration": 4.30667781829834,
+  "exitcode": 1,
+  "root": "/Users/mina/Documents/keycorp/backend/dataset",
+  "environment": {
+    "Python": "3.6.7",
+    "Platform": "Darwin-18.7.0-x86_64-i386-64bit",
+    "Packages": {
+      "pytest": "5.1.1",
+      "py": "1.8.0",
+      "pluggy": "0.12.0"
+    },
+    "Plugins": {
+      "helpers-namespace": "2019.1.8",
+      "cov": "2.7.1",
+      "mock": "1.10.4",
+      "json-report": "1.1.0",
+      "metadata": "1.8.0"
+    }
+  },
+  "summary": {
+    "passed": 2,
+    "failed": 1,
+    "total": 3
+  },
+  "collectors": [
+    {
+      "nodeid": "",
+      "outcome": "passed",
+      "result": [
+        {
+          "nodeid": "tests/test_dataset_factory.py",
+          "type": "Module"
+        },
+        {
+          "nodeid": "tests/test_dataset_handler.py",
+          "type": "Module"
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/test_dataset_factory.py",
+      "outcome": "passed",
+      "result": [
+        {
+          "nodeid": "tests/test_dataset_factory.py::test_url_decode",
+          "type": "Function",
+          "lineno": 66
+        },
+        {
+          "nodeid": "tests/test_dataset_factory.py::test_generate_presigned_url_post",
+          "type": "Function",
+          "lineno": 73
+        }
+      ]
+    },
+    {
+      "nodeid": "tests/test_dataset_handler.py",
+      "outcome": "passed",
+      "result": [
+        {
+          "nodeid": "tests/test_dataset_handler.py::test_handler",
+          "type": "Function",
+          "lineno": 42
+        }
+      ]
+    }
+  ],
+  "tests": [
+    {
+      "nodeid": "tests/test_dataset_factory.py::test_url_decode",
+      "lineno": 66,
+      "outcome": "passed",
+      "keywords": [
+        "dataset",
+        "test_url_decode",
+        "tests/test_dataset_factory.py"
+      ],
+      "setup": {
+        "duration": 0.020613908767700195,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.00026988983154296875,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.0003600120544433594,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/test_dataset_factory.py::test_generate_presigned_url_post",
+      "lineno": 73,
+      "outcome": "failed",
+      "keywords": [
+        "__wrapped__",
+        "dataset",
+        "test_generate_presigned_url_post",
+        "tests/test_dataset_factory.py"
+      ],
+      "setup": {
+        "duration": 0.019126176834106445,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.041011810302734375,
+        "outcome": "failed",
+        "crash": {
+          "path": "/Users/mina/Documents/keycorp/backend/dataset/tests/test_dataset_factory.py",
+          "lineno": 91,
+          "message": "AssertionError: assert 'mynamespace/...ets/mydataset' == 'mynamespace/...ydataseterror'\n  - mynamespace/dataset/mydataset\n  + mynamespace/dataset/mydataseterror\n  ?                               +++++"
+        },
+        "traceback": [
+          {
+            "path": "tests/test_dataset_factory.py",
+            "lineno": 91,
+            "message": "AssertionError"
+          }
+        ],
+        "longrepr": "factory = <datasetFactory.datasetFactory object at 0x11ac30160>\n\n    @mock_s3\n    def test_generate_presigned_url_post(factory):\n        \"\"\"\n            Test generate presigned url post function\n            - mock an empty bucket\n            - assert bucket name in presigned url\n            - assert successful response\n        \"\"\"\n    \n        # Initialize bucket\n        s3 = boto3.resource(\"s3\", region_name=\"eu-west-1\")\n        s3.create_bucket(Bucket=factory.bucket)\n    \n        response = factory.generate_presigned_url_post()\n    \n        assert type(response) == dict\n        assert \"https://backend-test.s3.amazonaws.com\" in response[\"url\"]\n>       assert response[\"key\"] == factory.key + 'error'\nE       AssertionError: assert 'mynamespace/...ets/mydataset' == 'mynamespace/...ydataseterror'\nE         - mynamespace/dataset/mydataset\nE         + mynamespace/dataset/mydataseterror\nE         ?                               +++++\n\ntests/test_dataset_factory.py:91: AssertionError"
+      },
+      "teardown": {
+        "duration": 0.0004138946533203125,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "tests/test_dataset_handler.py::test_handler",
+      "lineno": 42,
+      "outcome": "passed",
+      "keywords": [
+        "test_handler",
+        "tests/test_dataset_handler.py",
+        "dataset"
+      ],
+      "setup": {
+        "duration": 0.0004150867462158203,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.012870073318481445,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.00024509429931640625,
+        "outcome": "passed"
+      }
+    }
+  ]
+}

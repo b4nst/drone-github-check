@@ -1,0 +1,41 @@
+{
+    "created": 1566829206,
+    "duration": 4.30667781829834,
+    "status": 0,
+    "environment": {
+        "Python": "3.6.7",
+        "Platform": "Darwin-18.7.0-x86_64-i386-64bit",
+        "Packages": {
+            "pytest": "5.1.1",
+            "py": "1.8.0",
+            "pluggy": "0.12.0"
+        },
+        "Plugins": {
+            "helpers-namespace": "2019.1.8",
+            "cov": "2.7.1",
+            "mock": "1.10.4",
+            "json-report": "1.1.0",
+            "metadata": "1.8.0"
+        }
+    },
+    "summary": {
+        "total": 2,
+        "passed": 2
+    },
+    "tests": [
+        {
+            "name": "test_url_decode",
+            "status": 0,
+            "duration": 0.021243810653686523,
+            "line": 66,
+            "crashReport": []
+        },
+        {
+            "name": "test_handler",
+            "status": 0,
+            "duration": 0.013530254364013672,
+            "line": 42,
+            "crashReport": []
+        }
+    ]
+}

@@ -5,6 +5,7 @@
     "tslint-config-prettier"
   ],
   "rules": {
+    "object-literal-sort-keys": false,
     "no-relative-imports": false,
     "variable-name": [
       true,
@@ -13,9 +14,18 @@
       "allow-leading-underscore",
       "require-const-for-all-caps"
     ],
-    "interface-name": [true, "never-prefix"],
-    "curly": [true, "ignore-same-line"],
-    "array-type": [true, "array"],
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
+    "curly": [
+      true,
+      "ignore-same-line"
+    ],
+    "array-type": [
+      true,
+      "array"
+    ],
     "prefer-type-cast": false,
     "mocha-no-side-effect-code": false
   }

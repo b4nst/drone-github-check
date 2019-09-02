@@ -4,14 +4,20 @@
   "description": "Create github checks from test report",
   "main": "app/index.js",
   "dependencies": {
-    "@octokit/rest": "^16.28.2"
+    "@octokit/rest": "^16.28.2",
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
+    "@types/chance": "^1.0.6",
     "@types/jest": "^24.0.18",
+    "@types/lodash": "^4.14.137",
+    "@types/mock-fs": "^3.6.30",
     "@types/node": "^12.7.2",
+    "chance": "^1.0.18",
     "husky": "^3.0.4",
     "jest": "^24.9.0",
     "lint-staged": "^9.2.4",
+    "mock-fs": "^4.10.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.18.2",
     "prettier-package-json": "^2.1.0",
