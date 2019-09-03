@@ -17,17 +17,19 @@ export interface SingleReport {
   }[]
 }
 
+export interface ReportSummary {
+  total: number
+  passed?: number
+  skipped?: number
+  failed?: number
+  error?: number
+}
+
 export interface Report {
   created: number
   duration: number
   status: TestStatus
   environment?: { [key: string]: any }
-  summary: {
-    total: number
-    passed?: number
-    skipped?: number
-    failed?: number
-    error?: number
-  }
+  summary: ReportSummary
   tests: SingleReport[]
 }

@@ -1,4 +1,4 @@
-import * as _ from 'lodash'
+import { chain, CollectionChain, pick, property } from 'lodash'
 import { convertStatus, readFileP } from '../helpers'
 import { Parser, Report, SingleReport, TestStatus } from '../types'
 
@@ -71,19 +71,19 @@ export const pickSummary = (
   skipped?: number
   failed?: number
   error?: number
-} => _.pick(summary, ['total', 'passed', 'failed', 'error', 'skipped'])
+} => pick(summary, ['total', 'passed', 'failed', 'error', 'skipped'])
 
 export const toSingleReport = (test: Test): SingleReport => ({
-  duration: _.chain(test)
+  duration: chain(test)
     .pick(['setup', 'call', 'teardown'])
     .reduce((acc, stage) => acc + (stage !== undefined ? stage.duration : 0), 0)
     .value(),
   line: test.lineno,
   name: test.nodeid.split('::').pop() || '',
   status: convertStatus(test.outcome),
-  crashReport: (_.chain(test)
-    .map(_.property('crash'))
-    .compact() as _.CollectionChain<NonNullable<TestStage['crash']>>)
+  crashReport: (chain(test)
+    .map(property('crash'))
+    .compact() as CollectionChain<NonNullable<TestStage['crash']>>)
     .map(c => ({
       lend: c.lineno,
       lstart: c.lineno,
