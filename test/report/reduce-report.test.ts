@@ -1,41 +1,16 @@
-import { Report, TestStatus, SingleReport } from '../../src/types'
+import { TestStatus, SingleReport } from '../../src/types'
 import { reduceReports } from '../../src/report/reduce-reports'
-import chance from 'chance'
 import { chunk } from 'lodash'
-
-const random = new chance()
-
-const createReport = (opt?: Partial<Report>): Report =>
-  Object.assign(
-    {
-      duration: 1,
-      status: TestStatus.Passed,
-      created: 1,
-      summary: {
-        total: 1,
-        passed: 1
-      },
-      tests: [
-        {
-          name: 'test1',
-          status: TestStatus.Passed,
-          duration: 1,
-          line: 3,
-          crashReport: []
-        }
-      ]
-    },
-    opt
-  )
+import { random } from '../test-helper'
 
 describe('Reduce reports', () => {
   test('should set created at earliest date', () => {
-    const reports = [10, 3, 6].map(created => createReport({ created }))
+    const reports = [10, 3, 6].map(created => random.report({ created }))
 
     expect(reduceReports(reports)).toHaveProperty('created', 3)
   })
   test('should add durations', () => {
-    const reports = [1, 2, 12].map(duration => createReport({ duration }))
+    const reports = [1, 2, 12].map(duration => random.report({ duration }))
 
     expect(reduceReports(reports)).toHaveProperty('duration', 15)
   })
@@ -45,7 +20,7 @@ describe('Reduce reports', () => {
       TestStatus.Passed,
       TestStatus.Failed,
       TestStatus.Skipped
-    ].map(status => createReport({ status }))
+    ].map(status => random.report({ status }))
 
     expect(reduceReports(reports)).toHaveProperty('status', TestStatus.Failed)
   })
@@ -55,7 +30,7 @@ describe('Reduce reports', () => {
       TestStatus.Passed,
       TestStatus.Skipped,
       TestStatus.Passed
-    ].map(status => createReport({ status }))
+    ].map(status => random.report({ status }))
 
     expect(reduceReports(reports)).toHaveProperty('status', TestStatus.Skipped)
   })
@@ -65,7 +40,7 @@ describe('Reduce reports', () => {
       TestStatus.Passed,
       TestStatus.Passed,
       TestStatus.Passed
-    ].map(status => createReport({ status }))
+    ].map(status => random.report({ status }))
 
     expect(reduceReports(reports)).toHaveProperty('status', TestStatus.Passed)
   })
@@ -75,7 +50,7 @@ describe('Reduce reports', () => {
       { foo: 'nope' },
       { bar: 'bar' },
       { foo: 'foo', baz: 'baz' }
-    ].map(environment => createReport({ environment }))
+    ].map(environment => random.report({ environment }))
 
     expect(reduceReports(reports)).toHaveProperty('environment', {
       foo: 'foo',
@@ -87,7 +62,7 @@ describe('Reduce reports', () => {
   test('should not have environment if not present in any record', () => {
     const reports = Array(3)
       .fill(undefined)
-      .map(createReport)
+      .map(() => random.report())
 
     expect(reduceReports(reports).environment).toBeUndefined()
   })
@@ -97,7 +72,7 @@ describe('Reduce reports', () => {
       { total: 3, passed: 3 },
       { total: 2, failed: 2 },
       { total: 3, failed: 1, skipped: 1, passed: 1 }
-    ].map(summary => createReport({ summary }))
+    ].map(summary => random.report({ summary }))
 
     expect(reduceReports(reports).summary).toStrictEqual({
       total: 8,
@@ -125,7 +100,7 @@ describe('Reduce reports', () => {
       )
       .sort((a, b) => a.name.localeCompare(b.name) || a.duration - b.duration)
 
-    const reports = chunk(tests, 3).map(tests => createReport({ tests }))
+    const reports = chunk(tests, 3).map(tests => random.report({ tests }))
     const received = reduceReports(reports).tests.sort(
       (a, b) => a.name.localeCompare(b.name) || a.duration - b.duration
     )
