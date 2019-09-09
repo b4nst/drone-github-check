@@ -171,7 +171,7 @@ class Random extends chance.Chance {
   public plugin_config(opt?: Partial<PluginConfig>): PluginConfig {
     return Object.assign(
       {
-        PLUGIN_APP_ID: random.hash(),
+        PLUGIN_APP_ID: random.integer(),
         PLUGIN_PRIVATE_KEY: random.hash(),
         PLUGIN_HOST_URL: random.url()
       },

@@ -1,6 +1,8 @@
 import * as Octokit from '@octokit/rest'
 import { flatMap, sum } from 'lodash'
+
 import { DroneEnv, Report } from '../types'
+
 import { convertSingleReport } from './convert-single-report'
 import { convertStatus } from './convert-status'
 
@@ -30,7 +32,7 @@ export const convertReport = (
   repo: drone.DRONE_REPO_NAME,
   head_sha: drone.DRONE_COMMIT_SHA,
   name: drone.DRONE_SYSTEM_HOST,
-  details_url: `${drone.DRONE_SYSTEM_PROTO}://${drone.DRONE_SYSTEM_HOSTNAME}`,
+  details_url: `${drone.DRONE_SYSTEM_PROTO}://${drone.DRONE_SYSTEM_HOST}`,
   status: 'completed',
   conclusion: convertStatus(report.status),
   started_at: new Date(drone.DRONE_BUILD_STARTED).toISOString(),

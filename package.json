@@ -1,15 +1,35 @@
 {
   "name": "drone-github-check",
-  "version": "0.0.1",
   "description": "Create github checks from test report",
+  "license": "MIT",
+  "author": "Bastien Arata",
+  "homepage": "https://github.com/b4nst/drone-github-check#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/b4nst/drone-github-check.git"
+  },
+  "bugs": {
+    "url": "https://github.com/b4nst/drone-github-check/issues"
+  },
+  "version": "0.0.1",
   "main": "app/index.js",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf app coverage ",
+    "lint": "tslint src/**/*.ts",
+    "prepublishOnly": "run-s clean build",
+    "test": "jest --coverage"
+  },
   "dependencies": {
+    "@octokit/app": "^4.1.0",
     "@octokit/rest": "^16.28.2",
     "env-config-map": "^1.0.3",
+    "glob-promise": "^3.4.0",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
     "@types/chance": "^1.0.6",
+    "@types/glob": "^7.1.1",
     "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.137",
     "@types/mock-fs": "^3.6.30",
@@ -30,28 +50,16 @@
     "tslint-microsoft-contrib": "^6.2.0",
     "typescript": "^3.5.3"
   },
-  "scripts": {
-    "build": "tsc",
-    "clean": "rimraf app coverage ",
-    "lint": "tslint src/**/*.ts",
-    "prepublishOnly": "run-s clean build",
-    "test": "jest --coverage"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/b4nst/drone-github-check.git"
-  },
   "keywords": [
+    "checks",
     "drone",
     "github",
-    "checks",
     "report",
     "test"
   ],
-  "author": "Bastien Arata",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/b4nst/drone-github-check/issues"
-  },
-  "homepage": "https://github.com/b4nst/drone-github-check#readme"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
 }
