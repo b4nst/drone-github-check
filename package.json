@@ -5,6 +5,7 @@
   "main": "app/index.js",
   "dependencies": {
     "@octokit/rest": "^16.28.2",
+    "env-config-map": "^1.0.3",
     "lodash": "^4.17.15"
   },
   "devDependencies": {

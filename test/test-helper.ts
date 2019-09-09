@@ -1,4 +1,5 @@
-import { Report, TestStatus, DroneEnv } from '../src/types'
+import { Report, TestStatus, DroneEnv, PluginConfig } from '../src/types'
+import * as Octokit from '@octokit/rest'
 import chance from 'chance'
 
 class Random extends chance.Chance {
@@ -137,6 +138,42 @@ class Random extends chance.Chance {
         DRONE_SYSTEM_VERSION: `${major}.${minor}.${patch}`,
         DRONE_TAG: 'v1.0.0',
         DRONE_TARGET_BRANCH: branch
+      },
+      opt
+    )
+  }
+
+  public checks_create_params(
+    opt = { annotations: 0 }
+  ): Octokit.ChecksCreateParams {
+    return {
+      owner: this.first(),
+      repo: this.word(),
+      head_sha: this.hash(),
+      name: this.word(),
+      output: {
+        title: this.sentence({ words: 3 }),
+        summary: this.sentence(),
+        annotations: this.n(
+          () => ({
+            path: this.n(this.word, 3).join('/'),
+            start_line: this.integer({ min: 0, max: 5 }),
+            end_line: this.integer({ min: 5, max: 10 }),
+            annotation_level: this.pickone(['notice', 'warning', 'failure']),
+            message: this.sentence()
+          }),
+          opt.annotations
+        )
+      }
+    }
+  }
+
+  public plugin_config(opt?: Partial<PluginConfig>): PluginConfig {
+    return Object.assign(
+      {
+        PLUGIN_APP_ID: random.hash(),
+        PLUGIN_PRIVATE_KEY: random.hash(),
+        PLUGIN_HOST_URL: random.url()
       },
       opt
     )
