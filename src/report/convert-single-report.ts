@@ -1,4 +1,5 @@
 import * as Octokit from '@octokit/rest'
+
 import { DroneEnv, SingleReport } from '../types'
 
 export const convertSingleReport = (

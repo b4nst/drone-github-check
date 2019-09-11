@@ -1,4 +1,5 @@
 import { assignWith, sum } from 'lodash'
+
 import { Report } from '../types'
 
 export const reduceReports = (reports: Report[]): Report =>

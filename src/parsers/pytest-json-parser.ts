@@ -1,4 +1,5 @@
 import { chain, CollectionChain, pick, property } from 'lodash'
+
 import { convertStatus, readFileP } from '../helpers'
 import { Parser, Report, SingleReport, TestStatus } from '../types'
 

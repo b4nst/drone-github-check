@@ -1,5 +1,6 @@
 import fs from 'fs'
 import util from 'util'
+
 import { TestStatus } from './types'
 
 export const readFileP = util.promisify(fs.readFile)

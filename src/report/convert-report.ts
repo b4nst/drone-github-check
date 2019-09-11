@@ -1,5 +1,5 @@
 import * as Octokit from '@octokit/rest'
-import { flatMap, sum } from 'lodash'
+import { flatMap } from 'lodash'
 
 import { DroneEnv, Report } from '../types'
 

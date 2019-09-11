@@ -1,4 +1,5 @@
 import * as Octokit from '@octokit/rest'
+
 import { Report } from './report'
 
 export type Report2Check = (

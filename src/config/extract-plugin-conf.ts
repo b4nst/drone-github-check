@@ -1,6 +1,7 @@
 import envConfigMap from 'env-config-map'
 import { compact, mapValues } from 'lodash'
 import { isArray } from 'util'
+
 import { PluginConfig } from '../types'
 
 const GITHUB_API_URL = 'https://api.github.com'
