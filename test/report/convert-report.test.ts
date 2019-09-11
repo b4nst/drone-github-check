@@ -19,15 +19,16 @@ describe('Convert report', () => {
       started_at: new Date(droneEnv.DRONE_BUILD_STARTED).toISOString(),
       output: {
         title: `${droneEnv.DRONE_SYSTEM_HOST} report`,
-        summary: '🤗 Build passed with a total of 1 tests.',
-        text: `Build ended with 1✔️/0⏳/0❌/0🚨/1 (passed/skipped/failed/error/total)`,
-        annotations: []
+        summary: `# Report of [build #${droneEnv.DRONE_BUILD_NUMBER}](${droneEnv.DRONE_SYSTEM_PROTO}://${droneEnv.DRONE_SYSTEM_HOST}/${droneEnv.DRONE_REPO}/${droneEnv.DRONE_BUILD_NUMBER})`,
+        annotations: [],
+        text: expect.stringContaining('Build done with success')
       }
     })
   })
 
   test('should convert a report that failed', () => {
     const r: Report = random.report({
+      status: TestStatus.Failed,
       summary: {
         total: 2,
         passed: 1,
@@ -65,12 +66,11 @@ describe('Convert report', () => {
       name: droneEnv.DRONE_SYSTEM_HOST,
       details_url: `${droneEnv.DRONE_SYSTEM_PROTO}://${droneEnv.DRONE_SYSTEM_HOSTNAME}`,
       status: 'completed',
-      conclusion: 'success',
+      conclusion: 'failure',
       started_at: new Date(droneEnv.DRONE_BUILD_STARTED).toISOString(),
       output: {
         title: `${droneEnv.DRONE_SYSTEM_HOST} report`,
-        summary: 'Build failed with 1 errors 😟',
-        text: `Build ended with 1✔️/0⏳/1❌/0🚨/2 (passed/skipped/failed/error/total)`,
+        summary: `# Report of [build #${droneEnv.DRONE_BUILD_NUMBER}](${droneEnv.DRONE_SYSTEM_PROTO}://${droneEnv.DRONE_SYSTEM_HOST}/${droneEnv.DRONE_REPO}/${droneEnv.DRONE_BUILD_NUMBER})`,
         annotations: [
           {
             path: 'path/to/file',
@@ -80,8 +80,22 @@ describe('Convert report', () => {
             message: 'Test 1 failed',
             title: 'test 2'
           }
-        ]
+        ],
+        text: expect.stringContaining('Build done with failure')
       }
     })
+  })
+
+  test('should add test env to details', () => {
+    const environment = { foo: 'foo', bar: { baz: 'baz' } }
+    const r: Report = random.report({ environment })
+
+    const actual = convertReport(r, droneEnv)
+
+    expect(actual.output).toStrictEqual(
+      expect.objectContaining({
+        text: expect.stringContaining(JSON.stringify(environment, null, 2))
+      })
+    )
   })
 })

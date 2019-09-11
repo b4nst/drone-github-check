@@ -11,7 +11,7 @@ const createOutput = (
   drone: DroneEnv
 ): Octokit.ChecksCreateParamsOutput => ({
   title: `${drone.DRONE_SYSTEM_HOST} report`,
-  summary: `# Report of [build #${drone.DRONE_BUILD_NUMBER}](${drone.DRONE_SYSTEM_PROTO}//${drone.DRONE_SYSTEM_HOST}/${drone.DRONE_REPO}/${drone.DRONE_BUILD_NUMBER})`,
+  summary: `# Report of [build #${drone.DRONE_BUILD_NUMBER}](${drone.DRONE_SYSTEM_PROTO}://${drone.DRONE_SYSTEM_HOST}/${drone.DRONE_REPO}/${drone.DRONE_BUILD_NUMBER})`,
   text: `Build done with ${convertStatus(report.status)} (${
     report.summary.total
   } tests executed, ${report.summary.failed || 0} failed)

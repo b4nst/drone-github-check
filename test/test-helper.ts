@@ -173,7 +173,9 @@ class Random extends chance.Chance {
       {
         PLUGIN_APP_ID: random.integer(),
         PLUGIN_PRIVATE_KEY: random.hash(),
-        PLUGIN_HOST_URL: random.url()
+        PLUGIN_HOST_URL: random.url(),
+        PLUGIN_REPORT_GLOB: random.string(),
+        PLUGIN_PARSER: random.string()
       },
       opt
     )
