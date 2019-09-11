@@ -104,4 +104,5 @@ export const toReport = async (report: PytestReport): Promise<Report> => ({
 
 const pytestJsonParser: Parser = (path, _info) =>
   readReport(path).then(toReport)
+
 export default pytestJsonParser

@@ -1,4 +1,4 @@
-import globPromise from 'glob-promise'
+import glob from 'glob-promise'
 
 import { splitCheckParams } from './check/split-check-params'
 import { uploadChecks } from './check/upload-checks'

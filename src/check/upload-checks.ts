@@ -1,5 +1,5 @@
 import { App } from '@octokit/app'
-import rest from '@octokit/rest'
+import Octokit from '@octokit/rest'
 
 import { DroneEnv, PluginConfig } from '../types'
 
@@ -14,8 +14,18 @@ const getInstalladtionId = async (
     baseUrl
   })
 
-  const { data } = await octo.apps.getRepoInstallation({ owner, repo })
-  return data.id
+  try {
+    const { data } = await octo.apps.getRepoInstallation({ owner, repo })
+    return data.id
+  } catch (e) {
+    if (e.name === 'HttpError' && e.status === 404) {
+      throw new Error(
+        `Unable to find an installation on the repo ${owner}/${repo}. Please install the app on this repo.`
+      )
+    } else {
+      throw e
+    }
+  }
 }
 
 const createAuthClient = async (config: PluginConfig, drone: DroneEnv) => {

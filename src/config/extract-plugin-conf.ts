@@ -11,7 +11,8 @@ export const extractPluginConf = (): PluginConfig =>
       PLUGIN_APP_ID: { type: 'number' },
       PLUGIN_PRIVATE_KEY: { type: 'string' },
       PLUGIN_REPORT_GLOB: { type: 'string', default: 'reports/**' },
-      PLUGIN_HOST_URL: { type: 'string', default: GITHUB_API_URL }
+      PLUGIN_HOST_URL: { type: 'string', default: GITHUB_API_URL },
+      PLUGIN_PARSER: { type: 'string', default: 'pytestJson' }
     }).getRedacted(),
     e => (isArray(e) ? compact(e) : e)
   )
